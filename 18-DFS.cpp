@@ -1,5 +1,5 @@
 /*
-BFS
+DFS
 TIME COMPLEXITY - O(V+E) (FOR AVERAGE, WORST AND BEST CASE)
 SPACE COMPLEXITY - O(V) - V.E IS PRODUCT OF NUMBER OF VERTICES AND EDGES
 */
@@ -36,27 +36,26 @@ void printGraph(vector<vector<int>>&G)
     }
 }
 
-void bfs(vector<vector<int>>&G, vector<int>&ans, int s)
+void dfs(vector<vector<int>>&G, vector<int>&ans, int s)
 {
     vector<bool>visited(G.size(), false);
-    queue<int> q;
+    stack<int>stk;
 
-    visited[s] = true;
-    q.push(s);
-
-    while(!q.empty())
+    stk.push(s);
+    while(!stk.empty())
     {
-        s = q.front();
-        ans.push_back(s);
-        q.pop();
+        int s = stk.top();
+        stk.pop();
 
+        if(!visited[s])
+        {
+            ans.emplace_back(s);
+            visited[s] = true;
+        }
         for(int i = 0; i < G[s].size(); i++)
         {
             if(!visited[G[s][i]])
-            {
-                visited[G[s][i]] = true;
-                q.push(G[s][i]);
-            }
+                stk.push(G[s][i]);
         }
     }
 }
@@ -93,8 +92,8 @@ int main()
     int startNode;
     cout<<"Start BFS from Start Node : ";
     cin>>startNode;
-    bfs(G, ans, startNode-1);
-    cout<<"BFS traversal : "<<endl;
+    dfs(G, ans, startNode-1);
+    cout<<"DFS traversal : "<<endl;
     cout<<startNode<<" : ";
     for(int i = 0 ; i < ans.size(); i++)
     {
