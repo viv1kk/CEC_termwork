@@ -61,98 +61,47 @@ void bfs(vector<vector<int>>&G, vector<int>&ans, int s)
     }
 }
 
-void undirectedGraph()
-{
-    int vn, en;
-    cout<<"Enter the number of Vertices : ";
-    cin>>vn;
-    cout<<"Enter the number of Edges : ";
-    cin>>en;
-
-    vector<vector<int>>G(vn);
-    for(int i = 0; i < vn; i++)
-    {
-        addEdges(G[i], i);
-    }
-    cout<<"Enter the Edges : \n";
-    for(int i = 0; i < en; i++)
-    {
-        int x, y;
-        cin>>x>>y;
-        x--;
-        y--;
-        addEdges(G[x], y);
-        addEdges(G[y], x);
-    }
-    vector<int>ans;
-    int startNode;
-    cout<<"Start BFS from Start Node : ";
-    cin>>startNode;
-    bfs(G, ans, startNode-1);
-    cout<<"BFS traversal : "<<endl;
-    cout<<startNode<<" : ";
-    for(int i = 0 ; i < ans.size(); i++)
-    {
-        cout<<ans[i]+1<<" --> ";
-    }
-    cout<<"EOL"<<endl;
-    cout<<"**************************"<<endl;
-    printGraph(G);
-}
-
-void directedGraph()
-{
-    int vn, en;
-    cout<<"Enter the number of Vertices : ";
-    cin>>vn;
-    cout<<"Enter the number of Edges : ";
-    cin>>en;
-
-    vector<vector<int>>G(vn);
-    for(int i = 0; i < vn; i++)
-    {
-        addEdges(G[i], i);
-    }
-    cout<<"Enter the Edges : \n";
-    for(int i = 0; i < en; i++)
-    {
-        int x, y;
-        cin>>x>>y;
-        x--;
-        y--;
-        addEdges(G[x], y);
-    }
-    vector<int>ans;
-    int startNode;
-    cout<<"Start BFS from Start Node : ";
-    cin>>startNode;
-    bfs(G, ans, startNode-1);
-    cout<<"BFS traversal : "<<endl;
-    cout<<startNode<<" : ";
-    for(int i = 0 ; i < ans.size(); i++)
-    {
-        cout<<ans[i]+1<<" --> ";
-    }
-    cout<<"EOL"<<endl;
-    cout<<"**************************"<<endl;
-    printGraph(G);
-}
-
 int main()
 {
     int ch;
     cout<<"1 : Undirected Graph\n";
     cout<<"2 : Directed Graph\n";
     cin>>ch;
-    switch(ch)
+    
+    int vn, en;
+    cout<<"Enter the number of Vertices : ";
+    cin>>vn;
+    cout<<"Enter the number of Edges : ";
+    cin>>en;
+
+    vector<vector<int>>G(vn);
+    for(int i = 0; i < vn; i++)
     {
-    case 1: undirectedGraph();
-        break;
-    case 2: directedGraph();
-        break;
-    default:
-        cout<<"Invalid Option!!\n";
-        return 0;
+        addEdges(G[i], i);
     }
+    cout<<"Enter the Edges : \n";
+    for(int i = 0; i < en; i++)
+    {
+        int x, y;
+        cin>>x>>y;
+        x--;
+        y--;
+        addEdges(G[x], y);
+        if(ch == 1) addEdges(G[y], x);
+    }
+    vector<int>ans;
+    int startNode;
+    cout<<"Start BFS from Start Node : ";
+    cin>>startNode;
+    bfs(G, ans, startNode-1);
+    cout<<"BFS traversal : "<<endl;
+    cout<<startNode<<" : ";
+    for(int i = 0 ; i < ans.size(); i++)
+    {
+        cout<<ans[i]+1<<" --> ";
+    }
+    cout<<"EOL"<<endl;
+    cout<<"**************************"<<endl;
+    printGraph(G);
     return 0;
 }
